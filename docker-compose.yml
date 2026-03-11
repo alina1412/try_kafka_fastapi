@@ -7,8 +7,11 @@ services:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
       ZOOKEEPER_SYNC_LIMIT: 2
+      ZOOKEEPER_AUTOPURGE_PURGEINTERVAL: 1 # Purge old snapshots and logs every 1 hour
     ports:
       - "2181:2181"
+    volumes:
+      - ./zookeeper:/confluentinc/zookeeper
     networks:
       - kafka-network
   
@@ -59,6 +62,20 @@ services:
     networks:
       - kafka-network
 
+  kafbat-ui:
+    container_name: kafbat-ui
+    image: ghcr.io/kafbat/kafka-ui:main
+    depends_on:
+      - kafka
+    environment:
+      KAFKA_CLUSTERS_0_NAME: local
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka:29092
+      DYNAMIC_CONFIG_ENABLED: 'true'
+    ports:
+      - 8080:8080      
+    networks:
+      - kafka-network
+  
   fastapi-app:
     build: .
     container_name: fastapi-app
