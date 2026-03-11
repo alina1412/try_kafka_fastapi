@@ -1,0 +1,85 @@
+[project]
+name = "fastapi-kafka"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiokafka>=0.13.0",
+    "fastapi>=0.135.1",
+    "isort>=8.0.1",
+    "uvicorn[standard]>=0.41.0",
+]
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.5",
+]
+
+
+[tool.black]
+line-length = 80
+
+[tool.isort]
+line_length = 80
+known_local_folder = []
+
+[tool.mypy]
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+
+[tool.ruff]
+line-length = 80
+indent-width = 4
+target-version = "py312"
+exclude = [
+    ".bzr",
+    ".direnv",
+    ".eggs",
+    ".git",
+    ".gitlab",
+    ".git-rewrite",
+    ".hg",
+    ".mypy_cache",
+    ".nox",
+    ".pants.d",
+    ".pytest_cache",
+    ".pytype",
+    ".ruff_cache",
+    ".svn",
+    ".tox",
+    ".venv",
+    "__pypackages__",
+    "alembic",
+    "migration",
+    "_build",
+    "buck-out",
+    "build",
+    "dist",
+    "docker",
+    "env",
+    "etc",
+    "requirements",
+    "venv"
+]
+
+[tool.ruff.format]
+# Аналогично black, двойные кавычки
+quote-style = "double"
+
+# Аналогично black, пробелы вместо табов
+indent-style = "space"
+
+# Аналогично black, trailing commas
+skip-magic-trailing-comma = false
+
+[tool.ruff.lint]
+# Список кодов или префиксов правил, которые следует считать исправляемыми. (https://docs.astral.sh/ruff/settings/#fixable)
+# По умолчанию все правила считаются исправляемыми.
+fixable = ["I", "RUF022", "RUF023"]
+preview = true
+
+[tool.ruff.lint.isort]
+# Объекдиняем импорты из одного пакета
+combine-as-imports = true
